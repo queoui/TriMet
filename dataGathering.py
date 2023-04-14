@@ -1,5 +1,7 @@
 import urllib3
 import datetime
+import json
+
 http = urllib3.PoolManager()
 todaysDate = datetime.date.today().strftime("%m-%d-%Y-")
 
@@ -13,13 +15,19 @@ def requestTrimetData():
 def TriMetToText(resp):
     if(resp.status == 200):
         print('Successful!')
-        print("New file "+ todaysDate+"TriMet.txt created.")
-        with open(todaysDate + 'TriMet.txt', 'wb') as writeOut:
+        print("New file "+ todaysDate+"TriMet.json created.")
+        with open(todaysDate + 'TriMet.json', 'wb') as writeOut:
             writeOut.write(resp.data)
         writeOut.close()
     else:
         print('Unsuccessful ..')
         print('Something went wrong, no new file created.')
 
+def parseData():
+    jsonOut = open(todaysDate + "TriMet.json", "rb")
+    jsonData = json.load(jsonOut)
+    jsonOut.close()
+
 resp = requestTrimetData()
 TriMetToText(resp)
+parseData()
