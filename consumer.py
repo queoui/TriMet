@@ -104,10 +104,10 @@ def timeStamp(row, *args):
 def getspeed(fetchedData):
     df = pd.DataFrame(fetchedData, columns=['EVENT_NO_TRIP', 'EVENT_NO_STOP', 'OPD_DATE', 'VEHICLE_ID', 'METERS', 'ACT_TIME', 'GPS_LONGITUDE', 'GPS_LATITUDE', 'GPS_SATELLITES', 'GPS_HDOP'])
     df['TIMESTAMP'] = df.apply(timeStamp, axis=1, args=(df['OPD_DATE'], df['ACT_TIME']))
-    df['dMETERS'] = df['METERS']
+    df['dMETERS'] = df['METERS'].diff()
     df['dTIMESTAMP'] = df['TIMESTAMP'].diff().dt.total_seconds()
 
-    get_speed = lambda x: x['dMETERS'] / x['dTIMESTAMP']
+    get_speed = lambda x: x['dMETERS'] / x['dTIMESTAMP'] if x['dTIMESTAMP'] != 0 else 0
 
     df['SPEED'] = df.apply(get_speed, axis=1)
     df.loc[0, 'SPEED'] = df.loc[1, 'SPEED']
