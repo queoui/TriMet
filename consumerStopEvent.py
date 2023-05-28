@@ -50,10 +50,7 @@ if __name__ == '__main__':
                 # `session.timeout.ms` for the consumer group to
                 # rebalance and start consuming
                 if len(fetchedData) > 0:
-                    #validate data
-                    # validateData = validateBreadCrumb.ValidateData(fetchedData)
-                    # runner = unittest.TextTestRunner()
-                    # runner.run(validateBreadCrumb.suite(fetchedData))
+  
                     
                     #update trip info
                     tripDf = stopEvents.getTripDf(fetchedData)

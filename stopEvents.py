@@ -46,12 +46,7 @@ def getStopEvents():
 
 
 def getTripDf(df):
-    # print(df)
-    # df1 = pd.DataFrame(df, columns=['trip_id', 'vehicle_number', 'leave_time', 'train', 'route_number', 
-    #                                        'direction', 'service_key', 'trip_number', 'stop_time', 'arrive_time',
-    #                                        'dwell', 'location_id', 'door', 'lift', 'ons', 'offs','estimated_load',
-    #                                        'maximum_speed', 'train_mileage','pattern_distance','location_distance',
-    #                                        'x_coordinate', 'y_coordinate', 'data_source', 'schedule_status'])
+
     df1 = pd.DataFrame.from_dict(df, orient='columns')
     df1 = df1.rename(columns={'route_number': 'route_id', 'vehicle_number': 'vehicle_id'})
     # print(df1.head)
